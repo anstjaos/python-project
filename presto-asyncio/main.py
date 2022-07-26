@@ -1,16 +1,19 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+import prestodb
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+if __name__ == "__main__":
+    conn = prestodb.dbapi.connect(
+        host='host',
+        port='443',
+        user='id',
+        catalog='catalog',
+        schema='schema',
+        http_scheme='https',
+        auth=prestodb.auth.BasicAuthentication("id", "pwd"),
+    )
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM persons')
+    rows = cur.fetchall()
+    for row in rows:
+        print(row)
