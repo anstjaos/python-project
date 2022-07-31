@@ -7,6 +7,7 @@ name = "pypi"
 requests = "*"
 presto-python-client = "==0.8.2"
 aiohttp = "*"
+google-auth = "*"
 
 [dev-packages]
 
