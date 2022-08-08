@@ -80,6 +80,7 @@ class PrestoQuery(object):
     async def fetch(self):
         # type: () -> List[List[Any]]
         """Continue fetching data for the current query_id"""
+        logger.info(self._request.next_uri)
         response = await self._request.get(self._request.next_uri)
         status = await self._request.process(response)
         if status.columns:

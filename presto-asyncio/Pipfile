@@ -9,6 +9,7 @@ presto-python-client = "==0.8.2"
 aiohttp = "*"
 google-auth = "*"
 aiofile = "*"
+pytz = "*"
 
 [dev-packages]
 
