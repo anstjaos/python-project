@@ -31,9 +31,6 @@ async def execute_presto(query_context: QueryContext):
         schema=query_context.schema,
         source=query_context.source,
         next_uri=query_context.next_uri,
-        # http_session=aiohttp.ClientSession,
-        # http_scheme='https',
-        # auth=BasicAuthentication("moonseo.kim@nhn.com", "dVh0suygv8jvsHp7L0Fid6")
     )
     async with request as req:
         query = PrestoQuery(req, sql=query_context.query)
@@ -174,5 +171,23 @@ def map_to_python_type(item: Tuple[Any, Dict]) -> Any:
 
 
 if __name__ == "__main__":
+    query_context = QueryContext(
+        host='10.161.166.58',
+        port=8080,
+        user='user',
+        catalog='memory',
+        schema='default',
+        source='python test',
+        query='select * from test15'
+    )
+    # query_context = QueryContext(
+    #     host='83c0b5a6-f4d9-40a6-9923-bbec44014e15.cluster-dataquery.alpha-nhncloudservice.com',
+    #     port=443,
+    #     user='moonseo.kim@nhn.com',
+    #     catalog='df-mysql',
+    #     schema='hello',
+    #     source='python test',
+    #     query='select * from hello limit 1000'
+    # )
     logging.basicConfig(level=logging.INFO)
     asyncio.run(execute_presto(query_context))
