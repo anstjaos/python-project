@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7185f392-c075-4ef5-8cf7-444ed752171e" name="Changes" comment="presto 타입 변환 및 저장">
+    <list default="true" id="7185f392-c075-4ef5-8cf7-444ed752171e" name="Changes" comment="불필요한 데이터 삭제">
+      <change afterPath="$PROJECT_DIR$/file_manager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -104,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659946200813</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="불필요한 데이터 삭제">
+      <created>1660006178150</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1660006178150</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -123,6 +131,7 @@
     <MESSAGE value="presto 설정 추가" />
     <MESSAGE value="presto 연결" />
     <MESSAGE value="presto 타입 변환 및 저장" />
-    <option name="LAST_COMMIT_MESSAGE" value="presto 타입 변환 및 저장" />
+    <MESSAGE value="불필요한 데이터 삭제" />
+    <option name="LAST_COMMIT_MESSAGE" value="불필요한 데이터 삭제" />
   </component>
 </project>

@@ -1,16 +1,14 @@
 import asyncio
-import json
 import logging
-import os.path
 import re
 from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from typing import Tuple, Any, Dict
 
 import pytz
-from aiofile import async_open
 from prestodb.exceptions import HttpError
 
+from file_manager import save_columns_to_csv_file, save_rows_to_csv_file
 from presto.presto_query import PrestoQuery
 from presto.presto_request import PrestoRequest
 from query_context import QueryContext
@@ -49,14 +47,14 @@ async def execute_presto(query_context: QueryContext):
                 results = await query.fetch()
                 if not columns and query.columns:
                     columns = query.columns
-                    await save_columns(columns, query.query_id)
+                    await save_columns_to_csv_file(query.query_id)
 
                 if results:
                     convert_results = []
                     for row in results:
                         convert_results.append(list(map(map_to_python_type, zip(row, columns))))
                     rows.extend(convert_results)
-                    await save_rows(convert_results, query.query_id)
+                    await save_rows_to_csv_file(query.query_id)
 
             logger.info(f"row size:{len(rows)}")
             logger.info(f"columns:{columns}")
@@ -68,35 +66,6 @@ async def execute_presto(query_context: QueryContext):
             logger.exception("Unknown Exception")
         finally:
             return query_context
-
-
-async def save_columns(columns, query_id):
-    if os.path.isfile(query_id + '.json'):
-        return
-
-    data = {
-        'columns': []
-    }
-    for column in columns:
-        data['columns'].append({
-            'name': column['name'],
-            'type': column['type']
-        })
-    async with async_open(query_id + '.json', 'w+') as afp:
-        await afp.write(json.dumps(data))
-
-
-async def save_rows(rows, query_id):
-    async with async_open(query_id + '.json', 'r') as afp:
-        data = json.loads(await afp.read())
-
-    if 'rows' not in data:
-        data['rows'] = rows
-    else:
-        data['rows'].append(rows)
-
-    async with async_open(query_id + '.json', 'w+') as afp:
-        await afp.write(json.dumps(data))
 
 
 def map_to_python_type(item: Tuple[Any, Dict]) -> Any:
